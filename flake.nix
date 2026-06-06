@@ -22,7 +22,7 @@
           name = "iasevka-font";
           src = pkgs.fetchzip {
             url = "https://github.com/stringptr/Iasevka/releases/download/v2.1/Iasevka-v2.1.zip";
-            sha256 = "sha256-B3KgpHdzZb9S44yUgJP/cIFp9H5AFyIWnYHhurIezcU=";
+            sha256 = "sha256-tG/kP+S3Q36K4rxTm56LF1knbokLS29/aMfndsg4JhM=";
             stripRoot = true;
           };
           installPhase = ''
