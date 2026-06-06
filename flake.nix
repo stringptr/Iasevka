@@ -21,8 +21,8 @@
         packages.iasevka = pkgs.stdenvNoCC.mkDerivation {
           name = "iasevka-font";
           src = pkgs.fetchzip {
-            url = "https://github.com/stringptr/Iasevka/releases/download/v1.0/Iasevka-v1.0.zip";
-            sha256 = "sha256-Ga0vXB7hLuX/8Oicgj8HiEpLJxm52zQfAhAFNf35qBA=";
+            url = "https://github.com/stringptr/Iasevka/releases/download/v2.1/Iasevka-v2.1.zip";
+            sha256 = "sha256-B3KgpHdzZb9S44yUgJP/cIFp9H5AFyIWnYHhurIezcU=";
             stripRoot = true;
           };
           installPhase = ''
