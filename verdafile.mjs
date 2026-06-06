@@ -93,6 +93,14 @@ const SevenZipApp = oracle(`oracle:check-7zip-exists`, async _target => {
 	}
 });
 
+const NerdFontPatcherApp = oracle(`oracle:check-font-patcher`, async _target => {
+	try {
+		return await which(process.env.NERD_FONT_PATCHER_PATH || "font-patcher");
+	} catch (_e) {
+		fail("External dependency <font-patcher>, needed for nerd-font patching, does not exist.");
+	}
+});
+
 const Dependencies = computed("env::dependencies", async target => {
 	const [packageJsons] = await target.need(AllPackageJsons);
 	const subGoals = [];
@@ -1376,6 +1384,26 @@ const _RegenerateCode = task(`regenerate-code`, async target => {
 	await silently.node(`tools/misc/src/generate-ttfa-ranges.mjs`, {
 		out: `packages/font/src/generated/ttfa-ranges.mjs`,
 	});
+});
+
+const _NerdFonts = task(`nerd-fonts`, async target => {
+	target.is.volatile();
+	const [patcher] = await target.need(NerdFontPatcherApp);
+	const [rp] = await target.need(RawPlans);
+	const plans = rp.buildPlans || {};
+	const subTasks = [];
+	for (const [prefix, plan] of Object.entries(plans)) {
+		const nf = plan.nerdFont;
+		if (nf && nf.enable) {
+			subTasks.push(Entry_GroupFonts(prefix));
+		}
+	}
+	if (subTasks.length > 0) {
+		await target.need(subTasks);
+	}
+	echo.action(echo.hl.command("Nerd Font Patcher"), "Patching TTFs in-place...");
+	const scriptPath = `tools/nerd-font-patcher/patch.mjs`;
+	await silently.node(scriptPath);
 });
 
 const _Release = task(`release`, async target => {

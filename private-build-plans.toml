@@ -51,6 +51,11 @@ lig-single-arrow-bar = "without-notch"
 [buildPlans.Iasevka.ligations]
 inherits = "dlig"
 
+[buildPlans.Iasevka.nerdFont]
+enable = true
+complete = true
+mono = true
+
 [buildPlans.Iasevka.weights.Light]
 shape = 300
 menu = 300
