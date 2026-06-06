@@ -30,8 +30,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install font-patcher
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fontforge python3-fontforge
+          pip3 install nerd-fonts-patcher
+
       - name: Build Iasevka
         run: npm run build -- contents::Iasevka
+
+      - name: Patch Nerd Fonts
+        run: node tools/nerd-font-patcher/patch.mjs
 
       - name: Package artifacts
         run: |
