@@ -54,7 +54,7 @@ inherits = "dlig"
 [buildPlans.Iasevka.nerdFont]
 enable = true
 complete = true
-mono = true
+mono = false
 
 [buildPlans.Iasevka.weights.Light]
 shape = 300
